@@ -8,7 +8,7 @@ __pycache__/
 .coverage
 htmlcov/
 .env
-.env.example
+.env.local
 .venv
 env/
 venv/
