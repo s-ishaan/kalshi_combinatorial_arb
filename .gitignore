@@ -8,6 +8,7 @@ __pycache__/
 .coverage
 htmlcov/
 .env
+.env.example
 .venv
 env/
 venv/
@@ -22,3 +23,4 @@ ENV/
 .idea/
 .vscode/
 *.swp
+

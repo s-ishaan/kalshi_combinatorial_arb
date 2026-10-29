@@ -5,6 +5,7 @@ order book parser, snapshot recorder, and historical replay engine.
 from dataclasses import dataclass
 from typing import List, Dict, Any, Optional
 import json
+import os
 import time
 import urllib.request
 import urllib.error
@@ -19,7 +20,7 @@ class KalshiPublicClient:
     Client for unauthenticated public market data from Kalshi's v2 REST API.
     Does not require API keys or credentials for public L2 order book reads.
     """
-    BASE_URL = "https://api.elections.kalshi.com/trade-api/v2"
+    BASE_URL = os.getenv("KALSHI_API_BASE_URL", "https://api.elections.kalshi.com/trade-api/v2")
 
     def __init__(self, timeout_sec: float = 10.0):
         self.timeout_sec = timeout_sec
@@ -333,3 +334,4 @@ class ReplayHarness:
         else:
             print("  No executed trades during this session.")
         print("=" * 76 + "\n")
+
