@@ -41,3 +41,4 @@ python3 main.py --mode live
 echo -e "\n${BOLD}${GREEN}======================================================================${RESET}"
 echo -e "${BOLD}${GREEN}  ALL CHECKS AND SIMULATION RUNS COMPLETED SUCCESSFULLY [PASS]        ${RESET}"
 echo -e "${BOLD}${GREEN}======================================================================${RESET}\n"
+
