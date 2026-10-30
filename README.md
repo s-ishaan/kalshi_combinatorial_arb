@@ -110,6 +110,9 @@ kalshi/
 ├── backtest.py         # Latency decay, queue haircut simulator & capacity curves
 ├── feed.py             # Kalshi unauthenticated REST client, parser & ReplayHarness
 ├── main.py             # Unified CLI runner (replay, live, and benchmark modes)
+├── run.sh              # One-command all-in-one demo runner (tests + replay + benchmark + live)
+├── Makefile            # Quick command targets (make demo, make test, make replay, etc.)
+├── .env.example        # Environment configuration template (API URLs, fees, latencies)
 ├── data/
 │   └── kalshi_replay_sp500.jsonl  # Recorded 25-minute tick-by-tick Kalshi market depth
 ├── tests/
@@ -125,7 +128,7 @@ kalshi/
 
 ## Quickstart
 
-### Prerequisites
+### 1. Prerequisites & Installation
 * Python 3.10+
 * NumPy & SciPy
 
@@ -136,12 +139,35 @@ cd kalshi-combinatorial-arb
 
 # Install dependencies
 pip install -r requirements.txt
+
+# (Optional) Copy configuration template
+cp .env.example .env
 ```
 
-### 1. Run Historical Event Replay (Default)
+---
+
+### 2. One-Command Full Showcase (Recommended)
+To run the **entire suite in sequence** (15 unit tests $\to$ historical replay $\to$ capacity curve benchmark $\to$ live Kalshi scan):
+
+```bash
+./run.sh
+# or using Make:
+make demo
+```
+
+Execution finishes in **~3 seconds** with all-green verification and formatted tables.
+
+---
+
+### 3. Individual Execution Modes
+
+You can also run any component independently:
+
+#### A. Run Historical Event Replay (Default)
 Replays a 25-minute tick-by-tick sequence of real-world Kalshi order book depth:
 ```bash
 python3 main.py --mode replay
+# or: make replay
 ```
 
 **Sample Output:**
@@ -167,16 +193,18 @@ python3 main.py --mode replay
 ============================================================================
 ```
 
-### 2. Run Live Kalshi Scanner
+#### B. Run Live Kalshi Scanner
 Pulls live mutually exclusive events directly from Kalshi's public exchange API:
 ```bash
 python3 main.py --mode live
+# or: make live
 ```
 
-### 3. Run Benchmark Simulation (Capacity Curve Analysis)
+#### C. Run Benchmark Simulation (Capacity Curve Analysis)
 Simulates an FOMC rate decision market and prints the diminishing marginal returns curve:
 ```bash
 python3 main.py --mode benchmark
+# or: make benchmark
 ```
 
 **Capacity Curve Sample:**
@@ -195,10 +223,11 @@ python3 main.py --mode benchmark
 
 ## Running Automated Tests
 
-Run the full suite using Python's built-in `unittest` runner or `pytest`:
+Run the full suite using Python's built-in `unittest` runner, `pytest`, or `make test`:
 
 ```bash
 python3 -m unittest discover -s tests -p "test_*.py" -v
+# or: make test
 ```
 
 All 15 unit tests verify:
